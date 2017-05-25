@@ -1,0 +1,3 @@
+rootProject.name = 'rsvpApp'
+
+include ':app'
