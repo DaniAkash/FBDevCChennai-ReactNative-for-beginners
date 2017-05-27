@@ -13,7 +13,6 @@ const resetAction = NavigationActions.reset({
   actions: [
     NavigationActions.navigate({ 
         routeName: 'EventsList',
-        // params: {name : 'test'},
     })
   ]
 })
