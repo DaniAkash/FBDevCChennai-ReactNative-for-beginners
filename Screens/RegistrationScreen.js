@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
-  View
+  View,
+  TextInput,
+  ScrollView,
 } from 'react-native';
 
 export default class RegistrationScreen extends Component {
 
-    componentWillMount() {
-        console.log(this.props);
-    }
-
     render() {
         return (
-            <View>
+            <ScrollView style={{flex: 1}}>
                 <Text>Hello {this.props.navigation.state.params.name}!</Text>
-            </View>
+            </ScrollView>
         );
     }
 }

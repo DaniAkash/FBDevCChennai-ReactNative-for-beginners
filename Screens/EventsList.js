@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   FlatList,
+  TouchableHighlight,
 } from 'react-native';
 
 import events from '../data/events';
@@ -24,15 +24,21 @@ export default class EventsList extends Component {
 
     _renderRow(item) {
         return (
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10}}>
-                <View style={{height: 50, justifyContent: 'space-between'}}>
-                    <Text>{item.event}</Text>
-                    <Text>{item.location}</Text>
+            <TouchableHighlight 
+                onPress={()=>{
+                    this.props.navigation.navigate('Registration', { name: item.event });
+                }}
+                underlayColor='transparent'>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10}}>
+                    <View style={{height: 50, justifyContent: 'space-between'}}>
+                        <Text>{item.event}</Text>
+                        <Text>{item.location}</Text>
+                    </View>
+                    <View>
+                        <Text>{item.date}</Text>
+                    </View>
                 </View>
-                <View>
-                    <Text>{item.date}</Text>
-                </View>
-            </View>
+            </TouchableHighlight>
         );
     }
 

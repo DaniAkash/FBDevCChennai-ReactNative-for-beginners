@@ -19,6 +19,9 @@ export default StackNavigator({
     },
     Registration: {
         path: 'Registration/:name',
-        screen: RegistrationScreen
+        screen: RegistrationScreen,
+        navigationOptions: ({navigation}) => ({
+            title: navigation.state.params.name,
+        }),
     }, 
 });
