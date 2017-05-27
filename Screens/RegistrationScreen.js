@@ -9,7 +9,6 @@ export default class RegistrationScreen extends Component {
 
     componentWillMount() {
         console.log(this.props);
-        debugger;
     }
 
     render() {

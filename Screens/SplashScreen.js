@@ -12,8 +12,8 @@ const resetAction = NavigationActions.reset({
   index: 0,
   actions: [
     NavigationActions.navigate({ 
-        routeName: 'Registration',
-        params: {name : 'test'},
+        routeName: 'EventsList',
+        // params: {name : 'test'},
     })
   ]
 })
