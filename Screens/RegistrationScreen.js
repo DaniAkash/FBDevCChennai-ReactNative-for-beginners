@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   DatePickerAndroid,
   Button,
+  Platform
 } from 'react-native';
 
 export default class RegistrationScreen extends Component {
@@ -46,16 +47,23 @@ export default class RegistrationScreen extends Component {
     }
 
     async openDatePicker() {
-        try {
-            const {action, year, month, day} = await DatePickerAndroid.open({
-                date: new Date(this.state.dateOfBirth),
-                maxDate: new Date(),
-            });
-            if (action !== DatePickerAndroid.dismissedAction) {
-                this.setState({dateOfBirth: new Date(year, month, day)})
+        if(Platform.OS === 'android') {
+
+            try {
+                const {action, year, month, day} = await DatePickerAndroid.open({
+                    date: new Date(this.state.dateOfBirth),
+                    maxDate: new Date(),
+                });
+                if (action !== DatePickerAndroid.dismissedAction) {
+                    this.setState({dateOfBirth: new Date(year, month, day)})
+                }
+            } catch ({code, message}) {
+                console.warn('Cannot open date picker', message);
             }
-        } catch ({code, message}) {
-            console.warn('Cannot open date picker', message);
+
+        }
+        else {
+            // Code for iOS goes here...
         }
     }
 
