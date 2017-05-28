@@ -11,6 +11,9 @@ import {
   Modal,
   Image,
 } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+
+const backAction = NavigationActions.back();
 
 export default class RegistrationScreen extends Component {
 
@@ -41,13 +44,30 @@ export default class RegistrationScreen extends Component {
     }
 
     submit() {
-        let each;
-        for(each in this.state) {
-            if(!this.state[each]) {
+        let each, loopBroken = false;
+        let formValues = {
+            name: this.state.name,
+            email: this.state.email,
+            phoneNumber: this.state.phoneNumber,
+        };
+        for(each in formValues) {
+            if(!formValues[each]) {
                 this.setState({error: true});
+                loopBroken = true;
                 break;
             }
         }
+        if(!loopBroken) {
+            this.setState({loading: true});
+            setTimeout(() => {
+                this.setState({loading: false, done: true});
+            }, 3000);
+        }
+    }
+
+    complete() {
+        this.setState({done: false});
+        this.props.navigation.dispatch(backAction);
     }
 
     async openDatePicker() {
@@ -78,15 +98,31 @@ export default class RegistrationScreen extends Component {
                 <Modal
                     animationType={"slide"}
                     transparent={true}
-                    visible={true}
+                    visible={this.state.loading}
                     onRequestClose={() => {}}
-                >
+                    >
                     <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', alignItems: 'center', justifyContent: 'center'}}>
                       <Image
                         source={require('../resources/loading.gif')}
                         style={{height: 50, width: 50}}
                         resizeMode={'contain'}
                       />
+                    </View>
+                </Modal>
+
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={this.state.done}
+                    onRequestClose={() => {}}
+                    >
+                    <View style={{flex: 1, backgroundColor: 'rgb(255,255,255)', alignItems: 'center', justifyContent: 'center'}}>
+                        <Text style={{marginBottom: 20, fontSize: 20, fontWeight: 'bold'}}>Event Successfully Registered!</Text>
+                        <Button
+                            onPress={() => this.complete()}
+                            title="done"
+                            color="green"
+                        />                      
                     </View>
                 </Modal>
 
