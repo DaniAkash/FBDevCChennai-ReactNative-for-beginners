@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableHighlight,
   DatePickerAndroid,
+  Button,
 } from 'react-native';
 
 export default class RegistrationScreen extends Component {
@@ -15,6 +16,7 @@ export default class RegistrationScreen extends Component {
         email: '',
         phoneNumber: '',
         dateOfBirth: new Date(1990, 1, 1),
+        error: false,
     }
 
     changeName(name) {
@@ -31,6 +33,16 @@ export default class RegistrationScreen extends Component {
 
     changeDateOfBirth(dateOfBirth) {
         this.setState({dateOfBirth});
+    }
+
+    submit() {
+        let each;
+        for(each in this.state) {
+            if(!this.state[each]) {
+                this.setState({error: true});
+                break;
+            }
+        }
     }
 
     async openDatePicker() {
@@ -54,23 +66,41 @@ export default class RegistrationScreen extends Component {
                 <View style={{flex: 1, margin: 10}}>
                     <TextInput
                         placeholder={'Your Name'}
+                        ref={'_name'}
                         value={this.state.name}
                         onChangeText={name => this.changeName(name)}
                         keyboardType={'default'}
+                        returnKeyType={'next'}
+                        underlineColorAndroid={this.state.error && !this.state.name? 'red':'green'}
+                        onSubmitEditing={() => {
+                            this.refs._email.focus();
+                        }}
                     />
 
                     <TextInput
                         placeholder={'Email Address'}
+                        ref={'_email'}
                         value={this.state.email}
                         onChangeText={email => this.changeEmail(email)}
                         keyboardType={'email-address'}
+                        returnKeyType={'next'}
+                        underlineColorAndroid={this.state.error && !this.state.email? 'red':'green'}
+                        onSubmitEditing={() => {
+                            this.refs._phone.focus();
+                        }}
                     />
 
                     <TextInput
                         placeholder={'Phone Number'}
+                        ref={'_phone'}
                         value={this.state.phoneNumber}
                         onChangeText={phone => this.changePhoneNumber(phone)}
                         keyboardType={'numeric'}
+                        returnKeyType={'next'}
+                        underlineColorAndroid={this.state.error && !this.state.phoneNumber? 'red':'green'}
+                        onSubmitEditing={() => {
+                            this.openDatePicker();
+                        }}
                     />
 
                     <TouchableHighlight
@@ -82,6 +112,14 @@ export default class RegistrationScreen extends Component {
                             <Text>{`${this.state.dateOfBirth.getDate()}/${this.state.dateOfBirth.getMonth()}/${this.state.dateOfBirth.getFullYear()}`}</Text>
                         </View>
                     </TouchableHighlight>
+
+                    <View style={{alignSelf: 'center'}}>
+                        <Button
+                            onPress={() => this.submit()}
+                            title="Register"
+                            color="#841584"
+                        />
+                    </View>
                 </View>
             </ScrollView>
         );
