@@ -30,8 +30,8 @@ export default class SplashScreen extends Component {
 
     render() {
         return (
-            <View>
-                <Text>Hello World!</Text>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Welcome!</Text>
             </View>
         );
     }

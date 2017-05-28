@@ -7,7 +7,9 @@ import {
   TouchableHighlight,
   DatePickerAndroid,
   Button,
-  Platform
+  Platform,
+  Modal,
+  Image,
 } from 'react-native';
 
 export default class RegistrationScreen extends Component {
@@ -18,6 +20,8 @@ export default class RegistrationScreen extends Component {
         phoneNumber: '',
         dateOfBirth: new Date(1990, 1, 1),
         error: false,
+        loading: false,
+        done: false,
     }
 
     changeName(name) {
@@ -70,6 +74,22 @@ export default class RegistrationScreen extends Component {
     render() {
         return (
             <ScrollView style={{flex: 1}}>
+
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={true}
+                    onRequestClose={() => {}}
+                >
+                    <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', alignItems: 'center', justifyContent: 'center'}}>
+                      <Image
+                        source={require('../resources/loading.gif')}
+                        style={{height: 50, width: 50}}
+                        resizeMode={'contain'}
+                      />
+                    </View>
+                </Modal>
+
                 <Text style={{fontSize: 20, margin: 10}}>{this.props.navigation.state.params.name} Registration</Text>
                 <View style={{flex: 1, margin: 10}}>
                     <TextInput
