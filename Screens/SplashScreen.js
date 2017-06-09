@@ -1,38 +1,58 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
+  View,
   Text,
-  View
+  StyleSheet,
+  Image,
 } from 'react-native';
-import {
-    NavigationActions
-} from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 
 const resetAction = NavigationActions.reset({
   index: 0,
   actions: [
-    NavigationActions.navigate({ 
-        routeName: 'EventsList',
-    })
+    NavigationActions.navigate({routeName: 'EventList'}),
   ]
 })
 
 export default class SplashScreen extends Component {
-    static navigationOptions = {
-        header: null,
-    }
+  static navigationOptions = {
+    header: null
+  }
 
-    componentWillMount() {
-        setTimeout(()=> {
-            this.props.navigation.dispatch(resetAction)
-        }, 3000);
-    }
+  componentWillMount() {
+    setTimeout(() => {
+      this.props.navigation.dispatch(resetAction);
+    }, 3000);
+  }
 
-    render() {
-        return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}>Welcome!</Text>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image
+          resizeMode={'contain'}
+          source={require('../resources/images/welcome.png')}
+          style={styles.logo}
+        />
+        <Text style={styles.message}>Welcome!</Text>
+      </View>
+    )
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    height: 100,
+    width: 100,
+    marginBottom: 25
+  },
+  message: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: 'green',
+  },
+})
