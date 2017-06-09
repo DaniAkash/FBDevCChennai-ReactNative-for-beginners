@@ -15,8 +15,17 @@ export default class EventsList extends Component {
     };
 
     state = {
+        refreshing: false,
         events
     };
+
+    _refresh() {
+      this.setState({refreshing: true});
+      setTimeout(() => {
+        this.setState({refreshing: false});
+        return;
+      }, 3000);
+    }
 
     _keyExtractor(item, index) {
         return item.id;
@@ -24,7 +33,7 @@ export default class EventsList extends Component {
 
     _renderRow(item) {
         return (
-            <TouchableHighlight 
+            <TouchableHighlight
                 onPress={()=>{
                     this.props.navigation.navigate('Registration', { name: item.event });
                 }}
@@ -52,6 +61,8 @@ export default class EventsList extends Component {
         return(
             <View>
                 <FlatList
+                    refreshing={this.state.refreshing}
+                    onRefresh={this._refresh.bind(this)}
                     data={events}
                     renderItem={({item}) => this._renderRow(item)}
                     keyExtractor={this._keyExtractor}
