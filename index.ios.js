@@ -4,4 +4,4 @@ import {
 
 import App from './App';
 
-AppRegistry.registerComponent('rsvpTest', () => App);
+AppRegistry.registerComponent('rsvpApp', () => App);

@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import eventList from '../data/eventList.js';
+import eventList from '../data/events.js';
 
 export default class EventsList extends Component {
   static navigationOptions = {
